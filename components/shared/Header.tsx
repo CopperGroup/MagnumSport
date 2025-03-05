@@ -20,7 +20,7 @@ import { Store } from "@/constants/store";
 
 const Links = [
   { label: "Головна", href: "/" },
-  { label: "Каталог", href: "/catalog" },
+  { label: "Каталог", href: "/catalog?page=1&sort=default" },
   { label: "Уподобані", href: "/liked" },
   { label: "Мої замовлення", href: "/myOrders" },
   { label: "Інформація", href: "/info" },

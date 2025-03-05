@@ -62,7 +62,7 @@ export default function AboutUs() {
                 transition={{ duration: 0.4, delay: 0.7 }}
               >
                 <LinkButton 
-                  href="/collections" 
+                  href="/catalog?page=1&sort=default" 
                   className="text-small-semibold transition-colors px-6 py-3"
                 >
                   Дивитися екіпірування

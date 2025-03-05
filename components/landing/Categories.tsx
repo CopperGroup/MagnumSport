@@ -6,9 +6,9 @@ import Link from "next/link"
 import Image from "next/image"
 
 const categories = [
-  { name: "Штани", image: "/assets/1.jpg", href: "/catalog" },
-  { name: "Кепки", image: "/assets/2.jpg", href: "/catalog" },
-  { name: "Куртки", image: "/assets/3.jpg", href: "/catalog" },
+  { name: "Штани", image: "/assets/1.jpg", href: "/catalog?page=1&sort=default" },
+  { name: "Кепки", image: "/assets/2.jpg", href: "/catalog?page=1&sort=default" },
+  { name: "Куртки", image: "/assets/3.jpg", href: "/catalog?page=1&sort=default" },
 ]
 
 export default function Categories() {

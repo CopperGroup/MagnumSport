@@ -125,7 +125,7 @@ const Catalog = async ({searchParams,data}:any) => {
                   email={email}
                   url={product._id} 
                   price={product.price} 
-                  imageUrl={product.images[0]} 
+                  imageUrl={product.images[1]} 
                   description={product.description.replace(/[^а-яА-ЯіІ]/g, ' ').substring(0, 35) + '...'}  
                   priceToShow={product.priceToShow} 
                   name={pretifyProductName(product.name, [], product.articleNumber || "")}
