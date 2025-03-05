@@ -7,6 +7,8 @@ export default function BannerHero() {
     <section className="relative w-full h-screen overflow-hidden bg-black">
       <video
         src="/assets/video.mp4"
+        preload="auto" 
+        fetchpriority="high"
         autoPlay
         loop
         muted
