@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress"
 import { Loader2, CheckCircle, XCircle, Download, LinkIcon } from "lucide-react"
 import { createUrlProductsMany } from "@/lib/actions/product.actions"
 import { generateUniqueId } from "@/lib/utils"
+import ConnectGitHubButton from "@/components/interface/ConnectGitHubButton"
 
 type Product = {
   id: string
@@ -89,16 +90,6 @@ export default function ProductScraper() {
     }
   }
 
-  const downloadJSON = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(products, null, 2))
-    const anchor = document.createElement("a")
-    anchor.href = dataStr
-    anchor.download = "products.json"
-    document.body.appendChild(anchor)
-    anchor.click()
-    document.body.removeChild(anchor)
-  }
-
   return (
     <div className="container mx-auto p-4 max-w-4xl">
       <Card>
@@ -122,6 +113,7 @@ export default function ProductScraper() {
               )}
               Scrape URLs
             </Button>
+            <ConnectGitHubButton/>
           </div>
 
           {error && (
