@@ -12,6 +12,7 @@ import { filterProductsByKey, getCounts, getFiltredProducts, pretifyProductName,
 import { getCategoriesNamesIdsTotalProducts } from '@/lib/actions/categories.actions'
 import { getFilterSettingsAndDelay } from '@/lib/actions/filter.actions'
 import { Metadata } from 'next';
+import { Store } from '@/constants/store'
 
 export const metadata: Metadata = {
   title: "Catalog",
@@ -125,7 +126,7 @@ const Catalog = async ({searchParams,data}:any) => {
                   email={email}
                   url={product._id} 
                   price={product.price} 
-                  imageUrl={product.images[1]} 
+                  imageUrl={product.images[Store.default_image.product_card]} 
                   description={product.description.replace(/[^а-яА-ЯіІ]/g, ' ').substring(0, 35) + '...'}  
                   priceToShow={product.priceToShow} 
                   name={pretifyProductName(product.name, [], product.articleNumber || "")}

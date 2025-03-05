@@ -4,13 +4,14 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import { Store } from "@/constants/store"
 
 type ProductCarouselProps = {
   images: string[]
 }
 
 export default function ProductImagesCarousel({ images }: ProductCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(Store.default_image.product_page)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   const nextSlide = () => {

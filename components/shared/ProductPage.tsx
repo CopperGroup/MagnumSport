@@ -110,14 +110,14 @@ export default function ProductPage({ productJson, selectParams }: { productJson
                                 <BuyNow
                                     id={product._id} 
                                     name={product.name} 
-                                    image={product.images[0]} 
+                                    image={product.images[Store.default_image.checkout_page]} 
                                     price={product.price} 
                                     priceWithoutDiscount={product.priceToShow} 
                                 />
                                 <AddToCart 
                                     id={product._id} 
                                     name={product.name} 
-                                    image={product.images[0]} 
+                                    image={product.images[Store.default_image.checkout_page]} 
                                     price={product.price} 
                                     priceWithoutDiscount={product.priceToShow} 
                                     variant="full"
