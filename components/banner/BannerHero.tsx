@@ -1,14 +1,12 @@
 import { Button } from "@/components/ui/button"
-import { useOptimizedVideo } from "@/hooks/useOptimizeVideo";
 import Link from "next/link"
 
 export default function BannerHero() {
-  const optimizedSrc = useOptimizedVideo();
-
+  
   return (
     <section className="relative w-full h-screen overflow-hidden bg-black">
       <video
-        src={optimizedSrc}
+        src="/assets/video.mp4"
         autoPlay
         loop
         muted
