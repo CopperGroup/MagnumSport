@@ -20,7 +20,7 @@ import { Store } from "@/constants/store";
 
 const Links = [
   { label: "Головна", href: "/" },
-  { label: "Каталог", href: "/catalog?page=1&sort=default" },
+  { label: "Каталог", route: "/catalog", href: "/catalog?page=1&sort=default" },
   { label: "Уподобані", href: "/liked" },
   { label: "Мої замовлення", href: "/myOrders" },
   { label: "Інформація", href: "/info" },
@@ -73,8 +73,8 @@ export default function Header({ email, user }: { email: string; user: string })
         </div>
         <nav className="w-fit h-11 flex gap-1 justify-center items-center rounded-full bg-[#1f1f1f] px-2 max-lg:hidden">
           <AdminLink />
-          {Links.map(({ label, href }, index) => {
-            const isActive = (pathname.includes(href) && href.length > 1) || pathname === href;
+          {Links.map(({ label, href, route}, index) => {
+            const isActive = (pathname.includes(route || href) && href.length > 1) || pathname === href;
 
                 if(["Уподобані", "Мої замовлення"].includes(label)) {
                   if (!email) return null;

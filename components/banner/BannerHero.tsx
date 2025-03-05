@@ -1,15 +1,14 @@
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import CatalogLinkButton from "../interface/CatalogLinkButton"
 
 export default function BannerHero() {
-  
   return (
     <section className="relative w-full h-screen overflow-hidden bg-black">
       <video
         src="/assets/video.mp4"
+        autoPlay
         preload="auto" 
         fetchpriority="high"
-        autoPlay
         loop
         muted
         playsInline
@@ -27,20 +26,20 @@ export default function BannerHero() {
               Відкрийте екіпірування для тих, хто цінує якість, надійність та сучасні військовий стандарти.
             </p>
             <div className="flex gap-4 max-[465px]:flex-col">
-              <Button size="lg" className="bg-white text-black rounded-none hover:bg-neutral-200 px-0 py-0 text-lg">
-                <Link href="/catalog?page=1&sort=default" className="w-full h-full px-8 py-6 flex items-center">
+              <CatalogLinkButton link="/catalog?page=1&sort=default">
+                <Button size="lg" className="bg-white text-black rounded-none hover:bg-neutral-200 px-8 py-6 text-lg max-[465px]:w-full">
                   Замовити
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-white border-white rounded-none hover:bg-white/10 px-0 py-0 text-lg"
-              >
-                <Link href="/catalog?page=1&sort=default" className="w-full h-full px-8 py-6 flex items-center">
+                </Button>
+              </CatalogLinkButton>
+              <CatalogLinkButton link="/catalog?page=1&sort=default">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-white border-white rounded-none hover:bg-white/10 px-8 py-6 text-lg max-[465px]:w-full"
+                >
                   Дивитися колекцію
-                </Link>
-              </Button>
+                </Button>
+              </CatalogLinkButton>
             </div>
           </div>
         </div>
