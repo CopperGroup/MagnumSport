@@ -1,8 +1,19 @@
 "use server";
 
 import { cookies } from "next/headers";
+import User from "../models/user.model";
+import { connectToDB } from "../mongoose";
 
-export async function handleGitHubLogin() {
+interface GitHubLoginResponse {
+    url: string;
+}
+
+interface GitHubCallbackResponse {
+    success: boolean;
+    redirectUrl: string;
+}
+
+export async function handleGitHubLogin(): Promise<GitHubLoginResponse> {
     const clientId = process.env.GITHUB_CLIENT_ID;
     const redirectUri = "http://localhost:3000/api/auth/callback";
 
@@ -11,7 +22,7 @@ export async function handleGitHubLogin() {
     };
 }
 
-export async function handleGitHubCallback(code: any) {
+export async function handleGitHubCallback(code: string, email: string): Promise<GitHubCallbackResponse> {
     const res = await fetch("https://github.com/login/oauth/access_token", {
         method: "POST",
         headers: { Accept: "application/json" },
@@ -22,11 +33,45 @@ export async function handleGitHubCallback(code: any) {
         }),
     });
 
-    const data = await res.json();
-    if (!data.access_token) throw new Error("GitHub login failed");
+    const data = await res.json() as { access_token?: string };
 
-    // Store token securely (use a database in production)
+    if (!data.access_token) {
+        throw new Error("GitHub login failed");
+    }
+
+    const userRes = await fetch("https://api.github.com/user", {
+        headers: { Authorization: `token ${data.access_token}` },
+    });
+
+    const githubUser = await userRes.json();
+
+    if (!githubUser.id) throw new Error("Failed to fetch GitHub user data");
+
+    const userEmail = githubUser.email || ""
+
+    console.log(githubUser)
+    connectToDB()
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+        throw new Error("USer not found")
+    }
+
+    user.githubId = githubUser.id,
+    user.githubUsername = githubUser.login,
+    user.githubProfileUrl = githubUser.html_url,
+    user.githubEmail = githubUser.email,
+    user.githubAccessToken = data.access_token;
+
+    await user.save();
+
+    // Step 9: Store the GitHub token in cookies (optional, can be useful for future GitHub actions)
     cookies().set("github_token", data.access_token, { httpOnly: true });
 
-    return { success: true };
+
+    return {
+        success: true,
+        redirectUrl: process.env.NEXTAUTH_URL || "http://localhost:3000",
+    };
 }

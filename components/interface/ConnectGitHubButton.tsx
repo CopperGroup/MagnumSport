@@ -2,14 +2,20 @@
 
 import { useState } from "react";
 
-export default function ConnectGitHubButton() {
+export default function GitHubButton() {
     const [loading, setLoading] = useState(false);
 
     const connectGitHub = async () => {
         setLoading(true);
-        const res = await fetch("/api/auth/github", { method: "POST" });
-        const { url } = await res.json();
-        window.location.href = url; // Redirect to GitHub login
+        try {
+            const res = await fetch("/api/auth/github", { method: "POST" });
+            const { url } = (await res.json()) as { url: string };
+            window.location.href = url; // Redirect to GitHub login
+        } catch (error) {
+            console.error("GitHub login failed", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

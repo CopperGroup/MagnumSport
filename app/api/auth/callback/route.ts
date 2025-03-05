@@ -1,17 +1,21 @@
-import { NextResponse } from "next/server";
-import { NextApiRequest } from "next";
 import { handleGitHubCallback } from "@/lib/actions/auth.actions";
+import { getSession } from "@/lib/getServerSession";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
     const url = new URL(req.url);
     const code = url.searchParams.get("code");
 
-    if (!code) return NextResponse.json({ error: "Missing code" }, { status: 400 });
+    if (!code) {
+        return NextResponse.json({ error: "Missing code" }, { status: 400 });
+    }
 
     try {
-        await handleGitHubCallback(code);
-        return NextResponse.redirect("/");
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        const email = await getSession();
+
+        const { redirectUrl } = await handleGitHubCallback(code, email);
+        return NextResponse.redirect(redirectUrl); // Use absolute URL
+    } catch (error) {
+        return NextResponse.json({ error: (error as Error).message }, { status: 500 });
     }
 }

@@ -8,7 +8,6 @@ export default function BannerHero() {
         src="/assets/video.mp4"
         autoPlay
         preload="auto" 
-        fetchpriority="high"
         loop
         muted
         playsInline

@@ -683,7 +683,7 @@ export async function fetchProductAndRelevantParams(
 
     // Find products with the same base value (excluding the current product)
     const similarProducts = await Product.find({
-      [key]: new RegExp(valueToCompare, "i"),
+      [key]: new RegExp(valueToCompare.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"),
       isAvailable: true,
     });
 

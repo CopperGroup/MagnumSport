@@ -1,4 +1,3 @@
-
 import { handleGitHubLogin } from "@/lib/actions/auth.actions";
 import { NextResponse } from "next/server";
 
